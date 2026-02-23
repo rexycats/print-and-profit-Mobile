@@ -2926,6 +2926,313 @@ details.acc[open] .acc-caret { transform: rotate(180deg); color: var(--accent); 
   line-height: 1.6;
 }
 
+/* ============================================================
+   MOBILE-FIRST VERBETERINGEN
+   ============================================================ */
+
+/* ── 1. TOPBAR: Compacte 2-rijen layout op kleine schermen ── */
+@media (max-width: 600px) {
+  #topbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    padding: 8px 12px;
+    height: auto;
+    gap: 6px;
+  }
+  .logo {
+    font-size: 16px;
+    letter-spacing: 1px;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+  .topbar-right {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 6px;
+  }
+  /* Verberg Save/Reset/keyboard/Pro in topbar — via Settings tab */
+  .topbar-right .btn:not(#pro-btn),
+  .topbar-right .sound-btn:last-of-type {
+    display: none;
+  }
+  /* Stat pills: kompakter, 2e rij full-width scroll */
+  #topbar > div:nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #topbar > div:nth-child(2)::-webkit-scrollbar { display: none; }
+  .stat-pill {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+  .stat-pill .label { font-size: 9px; }
+  /* Verberg Expenses in topbar — te rommelig op klein scherm */
+  #burn-pill { display: none !important; }
+}
+
+/* ── 2. STOCK BAR: Scrollbaar, groter klik-doel ── */
+#stock-bar {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: nowrap !important;
+}
+#stock-bar::-webkit-scrollbar { display: none; }
+.stock-pill {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+/* ── 3. MINIGAME KNOPPEN: Veel groter voor thumbs ── */
+.mg-btn {
+  min-width: 72px !important;
+  min-height: 72px !important;
+  font-size: 28px !important;
+  border-radius: 20px !important;
+}
+.mg-buttons {
+  gap: 14px !important;
+  padding: 8px 0 !important;
+}
+@media (max-width: 400px) {
+  .mg-btn {
+    min-width: 60px !important;
+    min-height: 60px !important;
+    font-size: 24px !important;
+  }
+}
+
+/* ── 4. CLOG MASH KNOP: Groot en duidelijk ── */
+.clog-mash-btn {
+  min-width: 100px !important;
+  min-height: 100px !important;
+  font-size: 42px !important;
+  border-radius: 24px !important;
+}
+
+/* ── 5. POPUP: Beter op kleine schermen ── */
+@media (max-width: 500px) {
+  .popup {
+    width: calc(100vw - 32px) !important;
+    max-width: none !important;
+    margin: 16px;
+    border-radius: 20px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .popup-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .popup-actions .btn {
+    width: 100%;
+    min-height: 50px;
+  }
+}
+
+/* ── 6. BOTTOM NAV: Emoji-only op heel kleine schermen ── */
+@media (max-width: 380px) {
+  .main-nav .tab {
+    min-width: 52px !important;
+    padding: 8px 6px !important;
+    font-size: 18px !important;
+  }
+  /* Verberg tekst, houd emoji */
+  .main-nav .tab {
+    /* Toon alleen emoji (eerste 2 tekens) via clip */
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+/* ── 7. ORDER CARDS: Grotere tap zone ── */
+.order-card {
+  min-height: 60px;
+  padding: 12px !important;
+}
+.order-card .order-name {
+  font-size: 13px !important;
+}
+
+/* ── 8. PRINTER CARDS: Meer ruimte voor health bar / knoppen ── */
+@media (max-width: 600px) {
+  .printer-card {
+    padding: 12px !important;
+  }
+  /* Repair / View knoppen full-width op mobiel */
+  .printer-card .btn-full {
+    min-height: 46px;
+    font-size: 13px;
+  }
+}
+
+/* ── 9. SHOP ITEMS: Grid van 1 kolom op telefoon ── */
+@media (max-width: 480px) {
+  #shop-upgrades {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px;
+  }
+  .shop-item, .upgrade-card {
+    width: 100% !important;
+  }
+  /* Koop knop altijd vol breed */
+  .shop-item .btn,
+  .upgrade-card .btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 14px;
+  }
+}
+
+/* ── 10. CENTER PANEL: Grotere actie knoppen ── */
+@media (max-width: 600px) {
+  #start-btn, #cancel-btn, #repair-btn,
+  button[onclick*="startJob"], button[onclick*="cancelJob"] {
+    min-height: 52px !important;
+    font-size: 15px !important;
+    border-radius: 16px !important;
+  }
+  /* Filament & Quality selectors makkelijker te tikken */
+  .fil-btn, .qual-btn {
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* ── 11. MORE-SHEET: 3 kolommen i.p.v. 2 op grotere telefoons ── */
+@media (min-width: 420px) and (max-width: 900px) {
+  .more-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+.more-btn {
+  min-height: 52px;
+  font-size: 13px;
+  gap: 6px;
+}
+
+/* ── 12. LOG PANEL: Leesbaar op klein scherm ── */
+@media (max-width: 600px) {
+  #log-panel {
+    font-size: 11px;
+    max-height: 140px;
+  }
+  .log-entry {
+    padding: 4px 8px;
+  }
+}
+
+/* ── 13. TELEMETRY STRIP: 2x2 grid ── */
+@media (max-width: 600px) {
+  .telem-strip {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px;
+  }
+  .telem-cell {
+    padding: 8px !important;
+  }
+}
+
+/* ── 14. MARKET BAR: Verberg lange beschrijving ── */
+@media (max-width: 600px) {
+  .market-bar > span:last-child {
+    display: none;
+  }
+  .market-bar {
+    gap: 6px;
+    padding: 4px 12px;
+  }
+}
+
+/* ── 15. PROGRESS ARC / Job view: volle breedte ── */
+@media (max-width: 600px) {
+  .arc-wrap {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .active-job-panel {
+    padding: 12px !important;
+  }
+  .job-title {
+    font-size: 16px !important;
+  }
+}
+
+/* ── 16. SAFE AREA: iPhone notch / Dynamic Island ── */
+@supports (padding-top: env(safe-area-inset-top)) {
+  #topbar {
+    padding-top: max(8px, env(safe-area-inset-top));
+  }
+  .main-nav {
+    bottom: max(calc(env(safe-area-inset-bottom) + 10px), 18px) !important;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  }
+  #main {
+    padding-bottom: max(calc(var(--nav-h) + env(safe-area-inset-bottom) + 20px), 100px) !important;
+  }
+}
+
+/* ── 17. LANDSCAPE MODUS ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  #topbar { padding: 4px 12px; }
+  .logo { font-size: 14px; }
+  .product-canvas-wrap { max-height: 35vh !important; }
+  .acc-body { max-height: 45vh; }
+  .main-nav {
+    height: 52px !important;
+    border-radius: 14px !important;
+  }
+  .main-nav .tab {
+    height: 38px !important;
+    min-width: 80px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* ── 18. Actieve tab indicator — duidelijker op mobiel ── */
+@media (max-width: 900px) {
+  .main-nav .tab.active {
+    background: var(--accent) !important;
+    color: #000 !important;
+    font-weight: 700;
+  }
+  .main-nav .tab.active::after {
+    display: none; /* geen extra indicator nodig, kleur is genoeg */
+  }
+}
+
+/* ── 19. Scroll indicator op nav (laat zien dat er meer tabs zijn) ── */
+.main-nav::after {
+  content: '';
+  position: sticky;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  flex-shrink: 0;
+  background: linear-gradient(to right, transparent, rgba(10,12,18,0.85));
+  pointer-events: none;
+}
+
+/* ── 20. Input velden: beter toetsenbord UX ── */
+input[type="text"], input[type="number"], select {
+  font-size: 16px !important; /* voorkomt iOS auto-zoom */
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
 </style>
 </head>
 <body class="layout-mobile">
@@ -2952,10 +3259,8 @@ details.acc[open] .acc-caret { transform: rotate(180deg); color: var(--accent); 
 <div id="save-indicator">💾 Saved</div>
 <div class="notif-btn" id="notif-btn" onclick="Notifications.toggle()" title="Browser notifications">🔔<div class="notif-dot"></div></div>
 <div class="sound-btn" id="sound-btn" onclick="Sound.toggle()" title="Toggle sound">🔊</div>
-<div class="sound-btn" onclick="Tutorial.toggleKbd()" title="Keyboard shortcuts (press ?)">⌨️</div>
-<button class="btn-pro" id="pro-btn" onclick="Game.showProModal()">⚡ Go Pro</button>
-<button class="btn btn-primary btn-sm" onclick="Game.saveGame(true)">💾 Save</button>
-<button class="btn btn-ghost btn-sm" onclick="Game.resetGame()">↺ Reset</button>
+<button class="btn-pro" id="pro-btn" onclick="Game.showProModal()">⚡ Pro</button>
+<button class="btn btn-primary btn-sm" onclick="Game.saveGame(true)" title="Save game">💾</button>
 </div>
 </div>
 <!-- NIEUWS TICKER -->
@@ -3245,8 +3550,8 @@ details.acc[open] .acc-caret { transform: rotate(180deg); color: var(--accent); 
 <div style="color:var(--text-dim);font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Quality</div>
 <div class="quality-row" id="quality-row"></div>
 </div>
-<button class="btn btn-primary btn-full" id="start-job-btn" onclick="Game.startJob()">▶ START PRINT</button>
-<button class="btn btn-full btn-danger btn-sm" id="cancel-job-btn" onclick="Game.cancelJob()" style="display:none;">✕ Cancel Job</button>
+<button class="btn btn-primary btn-full" id="start-job-btn" onclick="Game.startJob()" style="min-height:54px;font-size:16px;letter-spacing:1px;">▶ START PRINT</button>
+<button class="btn btn-full btn-danger btn-sm" id="cancel-job-btn" onclick="Game.cancelJob()" style="display:none;min-height:46px;font-size:14px;">✕ Cancel Job</button>
 </div>
 </div>
 </div>
@@ -3482,6 +3787,13 @@ details.acc[open] .acc-caret { transform: rotate(180deg); color: var(--accent); 
 <div class="settings-sub">Alert when print finishes</div>
 </div>
 <button class="btn btn-ghost btn-sm" onclick="Notifications.toggle()">Enable</button>
+</div>
+<div class="settings-row">
+<div>
+<div class="settings-label">⌨️ Toetsenbord shortcuts</div>
+<div class="settings-sub">Toon/verberg sneltoetsen (Space, 1-3, Q/W/E)</div>
+</div>
+<button class="btn btn-ghost btn-sm" onclick="Tutorial.toggleKbd()">Toon</button>
 </div>
 <div class="settings-row">
 <div>
@@ -4246,7 +4558,7 @@ const State = {
 
   // v7: Weekly challenges
   activeChallenges: [],
-  challengeSessionData: { jobs:0, ultra:0, filamix:new Set(), nofail:0, earn:0, contracts:0, chains:0, night:0, tpu:0, resin:0 },
+  challengeSessionData: { jobs:0, ultra:0, filamix:[], nofail:0, earn:0, contracts:0, chains:0, night:0, tpu:0, resin:0 },
 
   // v7: New upgrade flags
   tpuUnlocked: false,
@@ -5102,10 +5414,36 @@ const Prestige = {
     State.cfUnlocked = false;
     State.glowUnlocked = false;
     State.cfNozzle = false;
+    State.tpuUnlocked = false;   // fix: was not reset on prestige
+    State.resinUnlocked = false; // fix: was not reset on prestige
     State.activeTrend = null;
     State.trendTimer = 0;
     State.trendCountdown = 120;
     State.inventory = { keychains: 0, planters: 0 };
+
+    // Reset research (upgrades are gone, so research bonuses must go too)
+    State.completedResearch = [];  // fix: research bonuses survived prestige
+    State.activeResearch    = null;
+    State.researchFlags     = {};
+
+    // Reset employees & economy (they were bought with old money)
+    State.hiredEmployees = [];    // fix: employees kept after prestige
+    State.tokens         = 0;    // fix: tokens kept after prestige
+    State.printQueue     = [];   // fix: queue kept after prestige
+    State.pendingOrder   = null;
+
+    // Reset loans (can't carry debt across prestige)
+    State.activeLoans = [];       // fix: loans kept after prestige
+    State.totalDebt   = 0;
+
+    // Reset facility (expensive facility with no printers to fill it)
+    State.ops = { facilityLevel:1, rentPM:8, electricityPerActivePM:1.2, maintenancePerPrinterPM:0.6, marketingPM:0 }; // fix: ops not reset
+
+    // Reset bounties & challenges
+    State.activeBounties  = [];
+    State.claimedBounties = [];
+    State.activeChallenges = [];
+    State.challengeSessionData = { jobs:0, ultra:0, filamix:[], nofail:0, earn:0, contracts:0, chains:0, night:0, tpu:0, resin:0 };
 
     // v10: Reset business-cycle state (keep legacy perks, hof, franchise, client tiers)
     State.taxAccum = 0;
@@ -7942,7 +8280,7 @@ const Printer = {
       return;
     }
 
-    Sound.stopHum(State.viewingPrinterIdx);
+    Sound.stopHum(pIdx); // fix: use actual printer index, not viewingPrinterIdx
     if (success) this._onSuccess(printer, job);
     else          this._onFailure(printer, job);
 
@@ -7962,7 +8300,7 @@ const Printer = {
       Inventory.onComplete(job);
       Sound.success();
       Suppliers.useStock(job.filament, CONFIG.FILAMENTS[job.filament]?.stockUse || 3);
-      this._resetPrinter(printer, true);
+      // Note: _resetPrinter is called by finishJob after _onSuccess returns
       UI.renderPrinters();
       return;
     }
@@ -8322,7 +8660,7 @@ const UI = {
       div.innerHTML=`<div class="printer-name" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
         <span class="printer-name-editable" onclick="UI.renamePrinter(${idx})" title="Click to rename">✏️ ${p.name}</span>${specTag}${modelTag}
         <span class="printer-status ${sc}" style="border-left:3px solid ${stDot};padding-left:6px">${st}</span>
-      </div>${prog}<div class="printer-stats"><div class="pstat"><div class="pstat-label">Health</div><div class="pstat-value" style="color:${hc}">${r0(p.health)}%</div></div><div class="pstat"><div class="pstat-label">Filament</div><div class="pstat-value" style="color:var(--accent);font-size:12px">${p.active&&p.job?p.job.filament:'—'}</div></div></div><div class="health-bar"><div class="health-fill" style="width:${p.health}%;background:${hc}"></div></div>${tempHtml}${!p.active&&p.health<100?`<button class="btn btn-sm btn-warn btn-full" style="margin-top:8px" onclick="Game.repairPrinter(${idx})">🔧 Repair (€${((100-p.health)*CONFIG.REPAIR_COST_PER_HP).toFixed(0)})</button>`:''}${p.active?`<button class="btn btn-sm btn-ghost btn-full" style="margin-top:4px;font-size:9px" onclick="State.viewingPrinterIdx=${idx};UI.renderCenterPanel()">👁 View Job</button>`:''}${specBtns}`;
+      </div>${prog}<div class="printer-stats"><div class="pstat"><div class="pstat-label">Health</div><div class="pstat-value" style="color:${hc}">${r0(p.health)}%</div></div><div class="pstat"><div class="pstat-label">Filament</div><div class="pstat-value" style="color:var(--accent);font-size:12px">${p.active&&p.job?p.job.filament:'—'}</div></div></div><div class="health-bar"><div class="health-fill" style="width:${p.health}%;background:${hc}"></div></div>${tempHtml}${!p.active&&p.health<100?`<button class="btn btn-sm btn-warn btn-full" style="margin-top:8px" onclick="Game.repairPrinter(${idx})">🔧 Repair (€${(((100-p.health)*CONFIG.REPAIR_COST_PER_HP)*(Season.current?.repairDiscount||1)).toFixed(0)})</button>`:''}${p.active?`<button class="btn btn-sm btn-ghost btn-full" style="margin-top:4px;font-size:9px" onclick="State.viewingPrinterIdx=${idx};UI.renderCenterPanel()">👁 View Job</button>`:''}${specBtns}`;
       panel.appendChild(div);
     });
   },
@@ -9187,6 +9525,11 @@ const Game = {
       if (o.timeLeft <= 0) {
         State.reputation = Math.max(0, State.reputation + CONFIG.REP_PER_EXPIRED);
         UI.log(`Order expired: ${o.name}`, 'warn');
+        // Clear pendingOrder if this was the selected order
+        if (State.pendingOrder && State.pendingOrder.id === o.id) {
+          State.pendingOrder = null;
+          UI.renderCenterPanel();
+        }
         return false;
       }
       return true;
@@ -10292,7 +10635,7 @@ function renderMilestoneProgress() {
 const Rival = {
   NAMES: ['PrintBot 3000','FilamentFoe','SpeedPrinter AI','RivalRobot','NozzleNemesis'],
   _name: 'PrintBot',
-  _stealTimer: 0,
+  _stealTimer: 35, // fix: start with full interval so rival doesn't steal immediately
   _stealInterval: 35, // seconds between steals, decreases with level
 
   init() {
@@ -10319,7 +10662,8 @@ const Rival = {
     if (State.orders.length < 2) return; // leave at least 1
     // Sort by time left ascending — steal the one about to expire
     const sorted = [...State.orders].sort((a, b) => a.timeLeft - b.timeLeft);
-    const victim = sorted[0];
+    // fix: never steal the order the player has selected
+    const victim = sorted.find(o => !State.pendingOrder || o.id !== State.pendingOrder.id);
     if (!victim) return;
 
     State.orders = State.orders.filter(o => o.id !== victim.id);
@@ -10361,7 +10705,7 @@ const Rival = {
     const lead = State.stats.jobsDone - State.rivalScore;
     if (lead >= 20 && !State._rivalDefeated) {
       State._rivalDefeated = true;
-      State._stealInterval = 50; // slow down after defeat
+      this._stealInterval = 50; // fix: was State._stealInterval (had no effect)
       const prize = 200 + State.bizLevel * 50;
       State.money = r2(State.money + prize);
       State.reputation = Math.min(200, State.reputation + 15);
@@ -10951,6 +11295,14 @@ const Complaints = {
 
   refund() {
     const c = State.pendingComplaint; if (!c) return;
+    if (State.money < c.refundAmt) {
+      // Can't afford refund — take a rep hit instead
+      const pen = Math.round(c.repPenalty * 1.5);
+      State.reputation = Math.max(0, State.reputation - pen);
+      UI.log(`💸 Kon niet terugbetalen aan ${c.client} — −${pen} reputatie`, 'error');
+      this._close(); UI.updateTopBar();
+      return;
+    }
     State.money = r2(State.money - c.refundAmt);
     State.stats_v10.complaintsRefunded = (State.stats_v10.complaintsRefunded || 0) + 1;
     UI.log(`💸 Refunded ${c.client}: ${fmtEur(c.refundAmt)}`, 'warn');
